@@ -3,7 +3,7 @@
   <PropertyGroup>
     <ActiveDebugFramework>net6.0-android</ActiveDebugFramework>
     <IsFirstTimeProjectOpen>False</IsFirstTimeProjectOpen>
-    <ActiveDebugProfile>Asus _A001D (Android 9.0 - API 28)</ActiveDebugProfile>
+    <ActiveDebugProfile>Philco Hit P13 (Android 11.0 - API 30)</ActiveDebugProfile>
     <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
   </PropertyGroup>
 </Project>
