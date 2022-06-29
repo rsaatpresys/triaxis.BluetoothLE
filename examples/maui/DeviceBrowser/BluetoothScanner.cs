@@ -7,6 +7,7 @@ public class BluetoothScanner
     private readonly IBluetoothLE _bluetooth;
     private readonly BluetoothDeviceCollection _devices = new();
     private IDisposable? _scanner;
+    private IAdapter _adapter;
 
     public BluetoothScanner(IBluetoothLE bluetooth)
     {
@@ -20,6 +21,8 @@ public class BluetoothScanner
         // stop previous scanner, if any
         _scanner?.Dispose();
 
+        _adapter = adapter;
+
         if (adapter.State == AdapterState.On)
         {
             // start scanning whenever Bluetooth is available
@@ -29,6 +32,12 @@ public class BluetoothScanner
         {
             _scanner = null;
         }
+    }
+
+    public void Reset()
+    {
+        _devices.Clear();
+        OnAdapterChange(_adapter);
     }
 
     public BluetoothDeviceCollection Devices => _devices;

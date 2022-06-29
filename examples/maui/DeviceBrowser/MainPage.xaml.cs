@@ -17,7 +17,7 @@ public partial class MainPage : ContentPage
     BluetoothDevice? GetDevice()
     {
 
-        var deviceFound = scanner.Devices.FirstOrDefault(x => x.DeviceName.Contains("P13") || x.DeviceName.Contains("K10"));
+        var deviceFound = scanner.Devices.FirstOrDefault(x => (!string.IsNullOrEmpty(x.DeviceName)) && (x.DeviceName.Contains("P13") || x.DeviceName.Contains("K10")));
 
         if (deviceFound == null)
         {
@@ -43,7 +43,12 @@ public partial class MainPage : ContentPage
         _deviceConnection = await _selectedDevice.Peripheral.ConnectAsync(5000);
         _deviceConnection.Closed += deviceConnection_Closed;
         _deviceServices = await _deviceConnection.GetServicesAsync();
-        var temp = await _deviceServices[0].GetCharacteristicsAsync();
+
+        var service = _deviceServices.First(s => s.Uuid.Uuid.ToString().Contains("1809"));
+
+        var characteristics = await service.GetCharacteristicsAsync();
+
+        var valueBytes = await characteristics[1].ReadAsync();
 
 
     }
@@ -59,7 +64,7 @@ public partial class MainPage : ContentPage
         await _deviceConnection.DisconnectAsync();
         _deviceConnection = null;
         _selectedDevice = null;
-        this.scanner.Devices.Clear();
+        this.scanner.Reset();
     }
 
 }
