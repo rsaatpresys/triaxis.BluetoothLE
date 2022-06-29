@@ -8,6 +8,7 @@ public class BluetoothDevice
     public BluetoothDevice(IPeripheral peripheral)
     {
         Peripheral = peripheral;
+     
     }
 
     public IPeripheral Peripheral { get; }
