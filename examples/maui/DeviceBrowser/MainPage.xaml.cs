@@ -50,6 +50,13 @@ public partial class MainPage : ContentPage
 
         var valueBytes = await characteristics[1].ReadAsync();
 
+        var canWrite = characteristics[1].CanWrite();
+        var canWriteWithoutResponse = characteristics[1].CanWriteWithoutResponse();
+
+        valueBytes[0] = (byte)(valueBytes[0] + 1);
+
+        await characteristics[1].WriteAsync(valueBytes);
+
 
     }
 
